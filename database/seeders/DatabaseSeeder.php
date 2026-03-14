@@ -3,9 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\Appointment;
+use App\Models\Employee;
 use App\Models\Horse;
 use App\Models\User;
-use Database\Factories\HorseFactory;
+use Database\Factories\EmployeeFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -18,13 +19,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
-
+        User::factory(20)
+            ->has(Employee::factory()->hasTimeAccount())
+            ->create();
         Horse::factory(20)->create();
         Appointment::factory(20)->create();
     }
