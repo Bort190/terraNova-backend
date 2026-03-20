@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\JsonResponse;
 
 class LoginController extends Controller
 {
     /**
      * Handle an authentication attempt.
      */
-    public function login(Request $request): \Illuminate\Http\JsonResponse
+    public function login(Request $request): JsonResponse
     {
-        var_dump($request->all());
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
@@ -33,7 +32,7 @@ class LoginController extends Controller
         ]);
     }
 
-    public function logout(Request $request): \Illuminate\Http\JsonResponse
+    public function logout(Request $request): JsonResponse
     {
         Auth::logout();
 
@@ -43,5 +42,9 @@ class LoginController extends Controller
         return response()->json([
             'message' => 'Logged out'
         ]);
+    }
+
+    public function user(Request $request): JsonResponse{
+        return response()->json(Auth::user());
     }
 }
